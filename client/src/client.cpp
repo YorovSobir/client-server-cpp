@@ -67,9 +67,10 @@ void get_options(int argc, char** argv, Protocol& protocol,
 
 void tcp_connection(const std::string& server_addr, uint16_t server_port) {
     auto text = read_text();
-
+    size_t size = text.length();
     try {
         TCPSocket sock(server_addr, server_port);
+        sock.send(static_cast<void*>(&size), sizeof(size_t));
         sock.send(text.c_str(), text.length());
 
         char buffer[TCPSocket::MAX_BUF_SIZE + 1];
@@ -97,7 +98,6 @@ void udp_connection(const std::string& server_addr, uint16_t server_port) {
     try {
         UDPSocket sock;
         sock.send_to(text.c_str(), text.length(), server_addr, server_port);
-
         auto buffer = std::make_unique<char[]>(text.length() + 1);
 
         if (sock.recv(buffer.get(), text.length()) != text.length()) {
@@ -106,7 +106,7 @@ void udp_connection(const std::string& server_addr, uint16_t server_port) {
         }
 
         buffer[text.length()] = '\0';
-        std::cout << "Received: " << buffer.release() << std::endl;
+        std::cout << "Received: " << buffer.get() << std::endl;
     } catch (Socket_Exception &e) {
         std::cerr << e.what() << std::endl;
         exit(1);

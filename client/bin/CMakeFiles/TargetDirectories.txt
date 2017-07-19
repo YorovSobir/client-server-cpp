@@ -1,3 +1,0 @@
-/home/user/CLionProjects/client-server-cpp/client/bin/CMakeFiles/rebuild_cache.dir
-/home/user/CLionProjects/client-server-cpp/client/bin/CMakeFiles/edit_cache.dir
-/home/user/CLionProjects/client-server-cpp/client/bin/CMakeFiles/client.dir

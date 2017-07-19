@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.6)
+project(lib_project)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+include_directories(include)
+ADD_LIBRARY(socket STATIC src/socket.cpp)
